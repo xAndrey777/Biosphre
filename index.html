@@ -1,279 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Biosphere Code | G.Archive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Roboto+Mono&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bio-green: #00FF41;
-            --bio-green-dim: rgba(0, 255, 65, 0.1);
-            --bg-dark: #050a05;
-            --glass: rgba(10, 20, 10, 0.6);
-            --border: rgba(255, 255, 255, 0.1);
-            --g-blue: #4285F4;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G.ARCHIVE - Biosfera Activa</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0;
+  background:#050a05;
+  color:#eaffea;
+  font-family:'Roboto Mono', monospace;
+  overflow-x:hidden;
+}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg-dark); 
-            color: white; 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+.header {
+  display:flex;
+  justify-content:space-between;
+  padding:20px 40px;
+}
 
-        /* --- FONDO ANIMADO --- */
-        #bg-canvas {
-            position: fixed; top: 0; left: 0; z-index: -1;
-            opacity: 0.4;
-        }
+.logo {
+  font-size:24px;
+  color:#2f5cff;
+  letter-spacing:2px;
+}
 
-        /* --- HEADER --- */
-        nav {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-        }
-        .logo-g { font-weight: 900; font-size: 1.5rem; color: var(--g-blue); }
-        .status { color: var(--bio-green); font-family: 'Roboto Mono'; font-size: 0.8rem; }
+.status {
+  color:#00ff88;
+}
 
-        /* --- LAYOUT PRINCIPAL --- */
-        .master-container {
-            display: grid;
-            grid-template-columns: 250px 1fr 350px;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
+.tagline {
+  text-align:center;
+  font-family:'Lora', serif;
+  font-style:italic;
+  font-size:28px;
+  color:#d4af37;
+  margin:30px 0;
+}
 
-        /* --- COLUMNA IZQUIERDA: ÁRBOL --- */
-        .tree-sidebar {
-            border-right: 1px solid var(--border);
-            padding-right: 20px;
-            font-size: 0.8rem;
-            color: #888;
-            font-family: 'Roboto Mono';
-        }
-        .tree-node { margin-bottom: 25px; position: relative; padding-left: 20px; }
-        .tree-node::before {
-            content: ''; position: absolute; left: 0; top: 0;
-            width: 2px; height: 100%; background: var(--bio-green); opacity: 0.3;
-        }
-        .active-node { color: var(--bio-green); font-weight: bold; }
+.container {
+  display:grid;
+  grid-template-columns: 1fr 2fr;
+  gap:20px;
+  padding:20px;
+}
 
-        /* --- COLUMNA CENTRAL: HERO --- */
-        .main-content { padding: 0 20px; }
-        
-        .hero-title-area { text-align: center; margin-bottom: 40px; }
-        .dna-icon { font-size: 3rem; margin-bottom: 10px; }
-        .main-title { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
-        .subtitle-serif { 
-            font-family: 'Lora', serif; font-style: italic; 
-            color: #ccc; font-size: 1.4rem; margin-top: 10px;
-        }
-        .subtitle-serif em { color: #fbbc05; font-style: normal; }
+.card {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  padding:20px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(0,255,100,0.1);
+}
 
-        /* PANELES DE DATOS */
-        .data-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 1fr 200px;
-            gap: 20px;
-        }
-        .card-info h2 { color: var(--bio-green); font-size: 0.9rem; margin-bottom: 10px; font-family: 'Roboto Mono'; }
-        .card-info h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .card-info p { font-size: 0.9rem; color: #aaa; line-height: 1.6; }
-        
-        .visual-data {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+.card h3 {
+  color:#00ffcc;
+}
 
-        /* --- COLUMNA DERECHA: MASIVOS --- */
-        .sidebar-right {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            font-family: 'Roboto Mono';
-            font-size: 0.7rem;
-        }
-        .data-stream { color: var(--bio-green); opacity: 0.7; margin-top: 15px; line-height: 1.5; }
+.tree {
+  height:500px;
+  overflow:auto;
+  font-size:12px;
+  line-height:1.6;
+}
 
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 40px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: #555;
-            border-top: 1px solid var(--border);
-            margin-top: 50px;
-        }
+.massive-panel {
+  background:rgba(0,255,120,0.05);
+  border:1px solid rgba(0,255,120,0.2);
+  padding:20px;
+  height:600px;
+  overflow:auto;
+}
 
-        @media (max-width: 1000px) {
-            .master-container { grid-template-columns: 1fr; }
-            .tree-sidebar, .sidebar-right { display: none; }
-        }
-    </style>
+.footer {
+  margin-top:40px;
+  padding:20px;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,0.1);
+  font-size:12px;
+  color:#88ffaa;
+}
+
+/* Decorative DNA background */
+.background {
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at center, rgba(0,255,120,0.1), transparent 70%);
+  z-index:-1;
+}
+
+</style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+<div class="background"></div>
 
-    <nav>
-        <div class="logo-g">G.ARCHIVE</div>
-        <div class="status">● BIOSFERA ACTIVA V1.0</div>
-    </nav>
+<div class="header">
+  <div class="logo">G.ARCHIVE</div>
+  <div class="status">● BIOSFERA ACTIVA v1.0</div>
+</div>
 
-    <div class="master-container">
-        <aside class="tree-sidebar">
-            <div style="margin-bottom: 40px; font-weight: bold; color: white;">Árbol Filogenético</div>
-            <div class="tree-node">ARCHAEA</div>
-            <div class="tree-node">BACTERIA</div>
-            <div class="tree-node">EUKARYOTA</div>
-            <div class="tree-node">FUNGI</div>
-            <div class="tree-node">PLANTAE</div>
-            <div class="tree-node">ANIMALIA</div>
-            <div class="tree-node active-node">HOMINIDAE<br><span style="font-size: 0.6rem; color: white;">● Homo Sapiens</span></div>
-        </aside>
+<div class="tagline">
+Documentando el conocimiento infinito de la vida desde la primera célula.
+</div>
 
-        <main class="main-content">
-            <div class="hero-title-area">
-                <div class="main-title">The Biosphere Code <span style="font-size: 0.8rem; vertical-align: middle; color: #888;">EL ARCHIVO DE LA VIDA</span></div>
-                <p class="subtitle-serif">Documentando el <em>conocimiento infinito</em> de la vida desde la primera célula.</p>
-            </div>
+<div class="container">
 
-            <div class="data-card">
-                <div class="card-info">
-                    <h2>01. EL ORIGEN (3.8B AÑOS)</h2>
-                    <h3>Abiogénesis</h3>
-                    <p>Microsimulación de moléculas autoensambladas, realizando secuencias genéticas reales en entornos hidrotermales primigenios.</p>
-                </div>
-                <div class="visual-data">
-                    <div id="particles-origin"></div>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3022/3022826.png" width="80" style="filter: invert(1); opacity: 0.5;">
-                </div>
-            </div>
-
-            <div class="data-card">
-                <div class="card-info">
-                    <h2>02. LA GRAN OXIDACIÓN</h2>
-                    <p>Documentando el aumento del oxígeno atmosférico causado por cianobacterias. Animación de niveles de O2 global.</p>
-                </div>
-                <div class="visual-data">
-                    <svg width="150" height="80">
-                        <path d="M0,80 Q37,10 75,40 T150,20" fill="none" stroke="#00FF41" stroke-width="2" />
-                    </svg>
-                </div>
-            </div>
-
-            <div class="data-card">
-                <div class="card-info">
-                    <h2>03. EXPLOSIÓN CÁMBRICA</h2>
-                    <p>Complejos morfológicos de animales antiguos, análisis de secuencias genéticas de los primeros Chordata.</p>
-                </div>
-                <div class="visual-data">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Pikaia_gracilens.png/320px-Pikaia_gracilens.png" width="120" style="filter: grayscale(1) brightness(2);">
-                </div>
-            </div>
-        </main>
-
-        <aside class="sidebar-right">
-            <div style="border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px;">DATOS MASIVOS</div>
-            <div class="data-stream" id="stream">
-                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
-                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
-                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
-                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
-            </div>
-            <div style="margin-top: 30px; height: 200px; border: 1px solid var(--bio-green-dim); position: relative;">
-                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: var(--bio-green); opacity: 0.1;"></div>
-                <p style="padding: 10px; font-size: 0.5rem;">REAL_TIME_SEQUENCING...</p>
-            </div>
-        </aside>
+  <div>
+    <div class="card">
+      <h3>Árbol Filogenético</h3>
+      <div class="tree">
+        Life
+        ├── Bacteria
+        ├── Archaea
+        └── Eukaryota
+            ├── Protista
+            ├── Plantae
+            ├── Fungi
+            └── Animalia
+                └── Chordata
+                    ├── Fish
+                    ├── Amphibians
+                    ├── Reptiles
+                    ├── Birds
+                    └── Mammals
+                        └── Primates
+                            ├── Lemurs
+                            ├── Monkeys
+                            ├── Apes
+                            │   ├── CHIMPANZEE COMMON ANCESTOR
+                            │   └── Homo Sapiens
+      </div>
     </div>
 
-    <footer>
-        BIOSFERA ARCHIVE PROJECT // TODA LA VIDA ESTÁ CONECTADA // 2026<br>
-        <span style="color: #444;">ALPHABET INC. MOONSHOT DIVISION</span>
-    </footer>
+    <div class="card">
+      <h3>Card 01: Abiogénesis</h3>
+      <p>Simulación de partículas que representan la formación de compuestos orgánicos en la Tierra primitiva.</p>
+    </div>
 
-    <script>
-        // --- MOTOR DE FONDO (DNA NETWORK) ---
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    <div class="card">
+      <h3>Card 02: Cianobacterias</h3>
+      <p>Organismos fotosintéticos responsables de la oxigenación de la atmósfera terrestre.</p>
+    </div>
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            for(let i=0; i<80; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5
-                });
-            }
-        }
+    <div class="card">
+      <h3>Card 03: Explosión Cámbrica</h3>
+      <p>Periodo de rápida diversificación de formas de vida multicelulares hace ~541 millones de años.</p>
+    </div>
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.strokeStyle = '#00FF41';
-            ctx.fillStyle = '#00FF41';
-            
-            particles.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
-                ctx.fill();
+  </div>
 
-                for(let j=i+1; j<particles.length; j++) {
-                    let p2 = particles[j];
-                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if(d < 150) {
-                        ctx.globalAlpha = 1 - (d/150);
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            });
-            ctx.globalAlpha = 1;
-            requestAnimationFrame(draw);
-        }
+  <div class="massive-panel">
+    <h3>DATOS MASIVOS</h3>
+    <p>
+    ATCGTTAGGCTAAGGCTAATCG...<br>
+    ATCGTTAGGCTAAGGCTAATCG...<br>
+    ATCGTTAGGCTAAGGCTAATCG...<br><br>
 
-        // --- SIMULACIÓN DE STREAM DE DATOS ---
-        const stream = document.getElementById('stream');
-        setInterval(() => {
-            const lines = stream.innerHTML.split('<br>');
-            if(lines.length > 8) lines.shift();
-            const rand = Math.random().toFixed(4);
-            lines.push(`ALIGNMENT::SEQ_${rand}::MATCH::98.${(Math.random()*9).toFixed(0)}%`);
-            stream.innerHTML = lines.join('<br>');
-        }, 1500);
+    Árbol Evolutivo Extendido:<br>
+    └── Primates<br>
+        ├── Homo sapiens sapiens<br>
+        ├── Homo neanderthalensis<br>
+        ├── Pan troglodytes<br>
+        ├── Pan paniscus<br>
+        ├── Gorilla gorilla<br>
+        ├── Pongo pygmaeus<br>
+        ├── Hylobates lar<br>
+        ├── Macaca mulatta<br>
+        ├── Papio anubis<br>
+        ├── Tarsius tarsier<br>
+        └── ... (dozens more)
+    </p>
+  </div>
 
-        window.onload = () => { init(); draw(); };
-        window.onresize = init;
-    </script>
+</div>
+
+<div class="footer">
+BIOSFERA ARCHIVE PROJECT // TODA LA VIDA ESTÁ CONECTADA // 2026<br>
+Alphabet Inc. Moonshot Division
+</div>
+
 </body>
 </html>
