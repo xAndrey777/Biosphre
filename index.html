@@ -3,324 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Archive: The Master Terminal (v.2026)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&family=Lora:ital,wght@1,400&family=Inter:wght@100;300;400;600;900&display=swap" rel="stylesheet">
+    <title>The Biosphere Code | G.Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Roboto+Mono&family=Lora:ital,wght@1,400&display=swap" rel="stylesheet">
     <style>
-        /* === ARQUITECTURA DE ESTILOS CORE (SYSTEM DESIGN) === */
         :root {
-            --g-blue: #4285F4; --g-red: #EA4335; --g-yellow: #FBBC05; --g-green: #34A853;
-            --bg-ultra-dark: #000000; --text-primary: #ffffff; --text-secondary: #9aa0a6;
-            --glass-bg: rgba(20, 20, 20, 0.3); --glass-border: rgba(255, 255, 255, 0.06);
-            --font-main: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
+            --bio-green: #00FF41;
+            --bio-green-dim: rgba(0, 255, 65, 0.1);
+            --bg-dark: #050a05;
+            --glass: rgba(10, 20, 10, 0.6);
+            --border: rgba(255, 255, 255, 0.1);
+            --g-blue: #4285F4;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: var(--bg-ultra-dark); color: var(--text-primary);
-            font-family: var(--font-main); overflow-x: hidden; scroll-behavior: smooth;
+            background-color: var(--bg-dark); 
+            color: white; 
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Scroll Progress High-End (Colores de Google) */
-        #scroll-progress {
-            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-            background: linear-gradient(90deg, var(--g-blue), var(--g-red), var(--g-yellow), var(--g-green));
-            z-index: 10000; box-shadow: 0 0 10px var(--g-blue);
+        /* --- FONDO ANIMADO --- */
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; z-index: -1;
+            opacity: 0.4;
         }
 
-        /* === FONDO INTERACTIVO ORIGINAL (PAGERANK NETWORK) === */
-        #pagerank-canvas { position: fixed; top: 0; left: 0; z-index: -2; opacity: 0.5; }
-        .ambient-glow {
-            position: fixed; top: 50%; left: 50%; width: 90vw; height: 90vh;
-            transform: translate(-50%, -50%); z-index: -1;
-            background: radial-gradient(circle, rgba(66, 133, 244, 0.08) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-        }
-
-        /* === HEADER EXTREMO (ESTILO CAPTURA ORIGINAL) === */
+        /* --- HEADER --- */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 30px 60px;
-            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .logo-g { font-weight: 900; font-size: 1.5rem; color: var(--g-blue); }
+        .status { color: var(--bio-green); font-family: 'Roboto Mono'; font-size: 0.8rem; }
+
+        /* --- LAYOUT PRINCIPAL --- */
+        .master-container {
+            display: grid;
+            grid-template-columns: 250px 1fr 350px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        /* Mantenimiento de links exactos */
-        .nav-logo { font-family: 'Product Sans'; font-size: 1.8rem; font-weight: 700; color: var(--g-blue); }
-        .nav-links { display: flex; gap: 35px; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); }
-        .nav-links a { text-decoration: none; color: inherit; transition: 0.3s; }
-        .nav-links a:hover { color: var(--text-primary); }
-
-        /* Indicador de estado original */
-        .status-dot { color: var(--g-green); font-family: var(--font-code); font-size: 0.9rem; letter-spacing: 2px; }
-
-        header { height: 110vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10; padding: 2rem; }
-
-        /* Título original en monospace */
-        .monospace-title { font-family: var(--font-code); color: var(--g-blue); font-size: 0.9rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 2rem; }
-
-        /* Logo original con colores exactos */
-        .original-logo { font-family: 'Product Sans'; font-size: clamp(6rem, 18vw, 12rem); font-weight: 900; letter-spacing: -6px; margin-bottom: 1.5rem; }
-        .original-logo span:nth-child(1), .original-logo span:nth-child(4) { color: var(--g-blue); }
-        .original-logo span:nth-child(2), .original-logo span:nth-child(6) { color: var(--g-red); }
-        .original-logo span:nth-child(3) { color: var(--g-yellow); }
-        .original-logo span:nth-child(5) { color: var(--g-green); }
-
-        /* Frase original en Serif dorada */
-        .lora-phrase { font-family: 'Lora', serif; font-size: clamp(1.5rem, 4vw, 2.8rem); font-style: italic; color: #f5f5f5; max-width: 900px; text-align: center; line-height: 1.4; font-weight: 400; }
-        .lora-phrase em { font-weight: 600; font-style: normal; color: var(--g-yellow); }
-
-        /* === BARRA DE ESTADÍSTICAS ORIGINALES === */
-        .original-stats { display: flex; gap: 80px; margin-top: 60px; flex-wrap: wrap; justify-content: center; }
-        .stat-item { text-align: center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px; }
-        .stat-num { font-size: 3.5rem; font-weight: 900; display: block; color: var(--text-primary); }
-        .stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; }
-
-        /* === SECCIONES DE CONTENIDO MAESTRO === */
-        .container { max-width: 1400px; margin: 0 auto; padding: 100px 40px; position: relative; z-index: 20; }
-        
-        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; margin-bottom: 120px; }
-
-        /* Transparencia y cristal en paneles inferiores */
-        .card {
-            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-radius: 30px; padding: 60px;
-            transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); position: relative; overflow: hidden;
-            opacity: 0; transform: translateY(50px);
+        /* --- COLUMNA IZQUIERDA: ÁRBOL --- */
+        .tree-sidebar {
+            border-right: 1px solid var(--border);
+            padding-right: 20px;
+            font-size: 0.8rem;
+            color: #888;
+            font-family: 'Roboto Mono';
         }
-        .card.visible { opacity: 1; transform: translateY(0); }
-        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
+        .tree-node { margin-bottom: 25px; position: relative; padding-left: 20px; }
+        .tree-node::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            width: 2px; height: 100%; background: var(--bio-green); opacity: 0.3;
+        }
+        .active-node { color: var(--bio-green); font-weight: bold; }
 
-        .c-full { grid-column: span 12; }
-        .c-half { grid-column: span 6; }
-        .c-third { grid-column: span 4; }
-
-        .card h2 { font-family: 'Product Sans'; font-size: 3.5rem; margin-bottom: 25px; font-weight: 900; }
-        .card p { font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary); font-weight: 300; }
-
-        /* === TIMELINE MAESTRO (INFERIOR) === */
-        .timeline-wrapper { position: relative; padding: 50px 0; }
-        .timeline-wrapper::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--glass-border); transform: translateX(-50%); }
-
-        .t-entry { width: 45%; margin-bottom: 120px; position: relative; opacity: 0; transform: translateY(50px); transition: 1s ease-out; }
-        .t-entry.left { margin-right: auto; text-align: right; }
-        .t-entry.right { margin-left: auto; text-align: left; }
-        .t-entry.visible { opacity: 1; transform: translateY(0); }
-
-        .t-box { background: var(--glass-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--glass-border); }
-        .t-year { font-family: var(--font-code); font-size: 3.5rem; font-weight: 900; color: var(--g-yellow); }
-        .t-title { font-size: 1.8rem; margin: 10px 0; color: var(--g-blue); }
+        /* --- COLUMNA CENTRAL: HERO --- */
+        .main-content { padding: 0 20px; }
         
-        /* === FOOTER MAESTRO === */
+        .hero-title-area { text-align: center; margin-bottom: 40px; }
+        .dna-icon { font-size: 3rem; margin-bottom: 10px; }
+        .main-title { font-size: 3.5rem; font-weight: 900; letter-spacing: -2px; }
+        .subtitle-serif { 
+            font-family: 'Lora', serif; font-style: italic; 
+            color: #ccc; font-size: 1.4rem; margin-top: 10px;
+        }
+        .subtitle-serif em { color: #fbbc05; font-style: normal; }
+
+        /* PANELES DE DATOS */
+        .data-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 20px;
+        }
+        .card-info h2 { color: var(--bio-green); font-size: 0.9rem; margin-bottom: 10px; font-family: 'Roboto Mono'; }
+        .card-info h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .card-info p { font-size: 0.9rem; color: #aaa; line-height: 1.6; }
+        
+        .visual-data {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* --- COLUMNA DERECHA: MASIVOS --- */
+        .sidebar-right {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            font-family: 'Roboto Mono';
+            font-size: 0.7rem;
+        }
+        .data-stream { color: var(--bio-green); opacity: 0.7; margin-top: 15px; line-height: 1.5; }
+
+        /* --- FOOTER --- */
         footer {
-            padding: 150px 50px; text-align: center; border-top: 1px solid var(--glass-border);
-            color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 2.5px;
-            background: linear-gradient(to bottom, transparent, #020205);
+            text-align: center;
+            padding: 40px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #555;
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
         }
 
-        /* === ANIMACIONES CORE === */
-        @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .float-anim { animation: floatLogo 6s ease-in-out infinite; }
-
-        /* === RESPONSIVE MODERNO === */
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .c-half, .c-third { grid-column: span 12; }
-            .original-stats { gap: 30px; }
-            .timeline-wrapper::before { left: 20px; }
-            .t-entry { width: 90%; margin-left: 50px !important; text-align: left !important; }
+        @media (max-width: 1000px) {
+            .master-container { grid-template-columns: 1fr; }
+            .tree-sidebar, .sidebar-right { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div id="scroll-progress"></div>
-    <canvas id="pagerank-canvas"></canvas>
-    <div class="ambient-glow"></div>
+    <canvas id="bg-canvas"></canvas>
 
     <nav>
-        <div class="nav-links">
-            <a href="#infra">Infraestructura</a>
-            <a href="#ai">Inteligencia</a>
-            <a href="#history">Historial</a>
-            <a href="#future">Futuro</a>
-        </div>
-        <div class="status-dot">● SISTEMA ACTIVO V2.0</div>
+        <div class="logo-g">G.ARCHIVE</div>
+        <div class="status">● BIOSFERA ACTIVA V1.0</div>
     </nav>
 
-    <header>
-        <p class="monospace-title">// EL ARCHIVO DEFINITIVO DEL UNIVERSO DIGITAL //</p>
-        <div class="original-logo">
-            <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
-        </div>
-        <p class="lora-phrase">Organizando el <span style="font-weight: 600; color: var(--g-yellow);">conocimiento infinito</span> del mundo desde 1998.</p>
-        
-        <div class="original-stats">
-            <div class="stat-item"><span class="stat-num">8.5B</span><span class="stat-label">Búsquedas / Día</span></div>
-            <div class="stat-item"><span class="stat-num">20PB</span><span class="stat-label">Datos Procesados</span></div>
-            <div class="stat-item"><span class="stat-num">2T+</span><span class="stat-label">Valoración Mercado</span></div>
-            <div class="stat-item"><span class="stat-num">180+</span><span class="stat-label">Países</span></div>
-        </div>
-    </header>
+    <div class="master-container">
+        <aside class="tree-sidebar">
+            <div style="margin-bottom: 40px; font-weight: bold; color: white;">Árbol Filogenético</div>
+            <div class="tree-node">ARCHAEA</div>
+            <div class="tree-node">BACTERIA</div>
+            <div class="tree-node">EUKARYOTA</div>
+            <div class="tree-node">FUNGI</div>
+            <div class="tree-node">PLANTAE</div>
+            <div class="tree-node">ANIMALIA</div>
+            <div class="tree-node active-node">HOMINIDAE<br><span style="font-size: 0.6rem; color: white;">● Homo Sapiens</span></div>
+        </aside>
 
-    <div class="container">
-        <div class="bento-grid" id="infra">
-            <div class="card c-full">
-                <h2>01. La Red Global de Nervios</h2>
-                <p>Google no es una web; es el dueño de la fibra óptica transoceánica más extensa del planeta. Sus cables (como 'Curie' o 'Grace Hopper') conectan continentes con latencias de microsegundos. La red Google maneja más del 40% del tráfico de internet en horas punta. Sus centros de datos operan bajo **Borg**, el precursor de Kubernetes.</p>
+        <main class="main-content">
+            <div class="hero-title-area">
+                <div class="main-title">The Biosphere Code <span style="font-size: 0.8rem; vertical-align: middle; color: #888;">EL ARCHIVO DE LA VIDA</span></div>
+                <p class="subtitle-serif">Documentando el <em>conocimiento infinito</em> de la vida desde la primera célula.</p>
             </div>
-            <div class="card c-half">
-                <h3>TPU: El Silicio de la IA</h3>
-                <p>Google diseñó los Tensor Processing Units (Chips custom). Están optimizados para la nucleosíntesis matemática requerida por el Deep Learning.</p>
-            </div>
-            <div class="card c-half">
-                <h3>Spanner: Tiempo Atómico</h3>
-                <p>La base de datos global sincrónica que sincroniza datos a nivel mundial utilizando relojes atómicos en sus racks.</p>
-            </div>
-        </div>
 
-        <div class="bento-grid" id="ai">
-            <div class="card c-third">
-                <h3>2012: Deep Learning</h3>
-                <p>Una red neuronal de 16k núcleos aprende a identificar gatos en YouTube sin saber qué era un gato.</p>
+            <div class="data-card">
+                <div class="card-info">
+                    <h2>01. EL ORIGEN (3.8B AÑOS)</h2>
+                    <h3>Abiogénesis</h3>
+                    <p>Microsimulación de moléculas autoensambladas, realizando secuencias genéticas reales en entornos hidrotermales primigenios.</p>
+                </div>
+                <div class="visual-data">
+                    <div id="particles-origin"></div>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3022/3022826.png" width="80" style="filter: invert(1); opacity: 0.5;">
+                </div>
             </div>
-            <div class="card c-third">
-                <h3>2017: Transformers</h3>
-                <p>El paper "Attention is All You Need" de Google definió la arquitectura que hoy usan todos los LLMs (ChatGPT, Gemini).</p>
-            </div>
-            <div class="card c-third">
-                <h3>2024: Gemini Ultra</h3>
-                <p>Razonamiento multimodal nativo: la IA ahora ve, oye, razona y ejecuta tareas sobre flujos de video continuos.</p>
-            </div>
-        </div>
 
-        <div class="timeline-wrapper" id="history">
-            <div id="dynamic-timeline"></div>
-        </div>
+            <div class="data-card">
+                <div class="card-info">
+                    <h2>02. LA GRAN OXIDACIÓN</h2>
+                    <p>Documentando el aumento del oxígeno atmosférico causado por cianobacterias. Animación de niveles de O2 global.</p>
+                </div>
+                <div class="visual-data">
+                    <svg width="150" height="80">
+                        <path d="M0,80 Q37,10 75,40 T150,20" fill="none" stroke="#00FF41" stroke-width="2" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="card-info">
+                    <h2>03. EXPLOSIÓN CÁMBRICA</h2>
+                    <p>Complejos morfológicos de animales antiguos, análisis de secuencias genéticas de los primeros Chordata.</p>
+                </div>
+                <div class="visual-data">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Pikaia_gracilens.png/320px-Pikaia_gracilens.png" width="120" style="filter: grayscale(1) brightness(2);">
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar-right">
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px;">DATOS MASIVOS</div>
+            <div class="data-stream" id="stream">
+                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
+                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
+                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
+                ALIGNMENT::H_SAPIENS::P_TROGLODYTES::99.4%<br>
+            </div>
+            <div style="margin-top: 30px; height: 200px; border: 1px solid var(--bio-green-dim); position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: var(--bio-green); opacity: 0.1;"></div>
+                <p style="padding: 10px; font-size: 0.5rem;">REAL_TIME_SEQUENCING...</p>
+            </div>
+        </aside>
     </div>
 
     <footer>
-        <p>TERMINAL SYSTEM // DATABASE DUMP COMPLETE // 2026</p>
-        <p>© ALPHABET INC. MOONSHOT DIVISION</p>
+        BIOSFERA ARCHIVE PROJECT // TODA LA VIDA ESTÁ CONECTADA // 2026<br>
+        <span style="color: #444;">ALPHABET INC. MOONSHOT DIVISION</span>
     </footer>
 
     <script>
-        /* === BASE DE DATOS MASIVA (Inyectada para ahorrar espacio) === */
-        const googleHistory = [
-            {year: "1995", title: "El Encuentro", desc: "Larry Page conoce a Sergey Brin en Stanford. Empieza la colaboración en BackRub."},
-            {year: "1997", title: "El Dominio", desc: "Se registra oficialmente google.com el 15 de septiembre."},
-            {year: "1998", title: "Garaje & Inc.", d: "Constitución como empresa. Cheque de 100k de Andy Bechtolsheim."},
-            {year: "1999", t: "Salgada de Garaje", d: "Se mudan a la primera oficina en Palo Alto con 8 empleados."},
-            {year: "2000", t: "AdWords", d: "Lanzan el motor económico de la web. Publicidad basada en la búsqueda."},
-            {year: "2001", t: "Schmidt", d: "Eric Schmidt se une como CEO para 'supervisar a los adultos'."},
-            {year: "2002", t: "Google News", d: "Tras el 11/s, unifican titulares de miles de fuentes noticiosas."},
-            {year: "2003", t: "AdSense", d: "Democratizan los ingresos web para pequeños creadores."},
-            {year: "2004", t: "Gmail & IPO", d: "Lanzan Gmail con 1GB el 1 de abril. Salida a bolsa a $85."},
-            {year: "2005", t: "Maps & Android", d: "Adquieren Where 2 Tech y Android. El mundo se vuelve digital."},
-            {year: "2006", t: "YouTube", d: "Compra de la plataforma de video por 1.65B$. Mejor trato de la historia."},
-            {year: "2007", t: "Street View", d: "El mundo a pie de calle gracias a cámaras panorámicas."},
-            {year: "2008", t: "Chrome v1", d: "Lanzan el navegador que destronaría a Internet Explorer."},
-            {year: "2010", t: "Google X", d: "Se funda el laboratorio secreto para Moonshots (Coches autónomos)."},
-            {year: "2011", t: "Google Panda", d: "Actualización masiva que eliminó granjas de contenido basura."},
-            {year: "2012", t: "Knowledge Graph", d: "Entienden entidades y conceptos, no solo palabras."},
-            {year: "2014", t: "DeepMind", d: "Compra de la empresa líder en IA. AlphaGo en desarrollo."},
-            {year: "2015", t: "Alphabet", d: "Google se reorganiza masivamente como subsidiaria de Alphabet Inc."},
-            {year: "2016", t: "AlphaGo", d: "Vencen al campeón mundial de Go, hito histórico en IA."},
-            {year: "2019", t: "Supremacía Cuántica", d: "Sycamore resuelve en 200s lo que llevaría 10 mil años."},
-            {year: "2023", t: "Gemini", d: "Pivote masivo hacia la IA generativa masiva multimodal."},
-            {year: "2024", t: "IA Everywhere", d: "Integración profunda en el Buscador (AI Overviews) y Workspace."},
-            {year: "2026", t: "Search 3.0", d: "El buscador ya no entrega enlaces, entrega respuestas sintetizadas."}
-        ];
-
-        /* === RENDERIZADO DEL DOM === */
-        const timeline = document.getElementById('dynamic-timeline');
-        googleHistory.forEach((item, index) => {
-            const side = index % 2 === 0 ? 'left' : 'right';
-            timeline.innerHTML += `
-                <div class="t-entry ${side}">
-                    <div class="t-box">
-                        <span class="t-year">${item.year}</span>
-                        <h3 class="t-title">${item.title || item.t}</h3>
-                        <p style="color:var(--text-secondary); line-height:1.6;">${item.desc || item.d}</p>
-                    </div>
-                </div>
-            `;
-        });
-
-        /* === MOTOR VISUAL CANVAS (PAGERANK NETWORK) MANTENIDO === */
-        const canvas = document.getElementById('pagerank-canvas');
+        // --- MOTOR DE FONDO (DNA NETWORK) ---
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        let width, height, columns;
-        let drops = [];
+        let particles = [];
 
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        class Node {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 2 + 1;
-                const colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
-            }
-
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if(this.x < 0 || this.x > width) this.vx *= -1;
-                if(this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color; ctx.fill();
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for(let i=0; i<80; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5
+                });
             }
         }
 
-        function createNodes() {
-            drops = [];
-            let particleCount = Math.floor(window.innerWidth / 15);
-            for(let i=0; i<particleCount; i++) {
-                drops.push(new Node());
-            }
-        }
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#00FF41';
+            ctx.fillStyle = '#00FF41';
+            
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 1, 0, Math.PI*2);
+                ctx.fill();
 
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            drops.forEach((n, i) => {
-                n.update(); n.draw();
-                for(let j=i; j<drops.length; j++) {
-                    let d = Math.hypot(n.x - drops[j].x, n.y - drops[j].y);
-                    if(d < 120) {
-                        ctx.beginPath(); ctx.strokeStyle = `rgba(255,255,255,${0.1 - d/1200})`;
-                        ctx.lineWidth = 0.5; ctx.moveTo(n.x, n.y); ctx.lineTo(drops[j].x, drops[j].y); ctx.stroke();
+                for(let j=i+1; j<particles.length; j++) {
+                    let p2 = particles[j];
+                    let d = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(d < 150) {
+                        ctx.globalAlpha = 1 - (d/150);
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
                     }
                 }
             });
-            requestAnimationFrame(animateCanvas);
+            ctx.globalAlpha = 1;
+            requestAnimationFrame(draw);
         }
 
-        /* === SCROLL & REVEAL EXTREMO === */
-        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        // --- SIMULACIÓN DE STREAM DE DATOS ---
+        const stream = document.getElementById('stream');
+        setInterval(() => {
+            const lines = stream.innerHTML.split('<br>');
+            if(lines.length > 8) lines.shift();
+            const rand = Math.random().toFixed(4);
+            lines.push(`ALIGNMENT::SEQ_${rand}::MATCH::98.${(Math.random()*9).toFixed(0)}%`);
+            stream.innerHTML = lines.join('<br>');
+        }, 1500);
 
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) { entry.target.classList.add('visible'); }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card, .t-entry').forEach(el => scrollObserver.observe(el));
-
-        window.addEventListener('scroll', () => {
-            const scroll = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById('scroll-progress').style.width = scroll + "%";
-        });
-
-        /* === INIT === */
-        window.onload = () => { initCanvas(); createNodes(); animateCanvas(); };
-        window.onresize = () => { initCanvas(); createNodes(); };
+        window.onload = () => { init(); draw(); };
+        window.onresize = init;
     </script>
 </body>
 </html>
