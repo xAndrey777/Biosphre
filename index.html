@@ -3,109 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Biosphere Code: El Archivo Maestro de la Vida</title>
-    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&family=Lora:ital,wght@1,400;1,600&family=Inter:wght@100;300;400;600;900&display=swap" rel="stylesheet">
+    <title>Google Archive: The Master Terminal (v.2026)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700;900&family=Roboto+Mono:wght@300;400;700&family=Lora:ital,wght@1,400&family=Inter:wght@100;300;400;600;900&display=swap" rel="stylesheet">
     <style>
-        /* =========================================================================
-           1. ARQUITECTURA DE DISEÑO CORE (BIOSPHERE SYSTEM DESIGN)
-           =========================================================================
-        */
+        /* === ARQUITECTURA DE ESTILOS CORE (SYSTEM DESIGN) === */
         :root {
-            /* Paleta de Colores: Bio-Digital */
-            --bio-green-matrix: #00FF41; --bio-green-deep: #008800; --bg-organic-dark: #050a05;
-            --text-primary: #ffffff; --text-muted: #80868b; --glass-border: rgba(255, 255, 255, 0.08);
-            --g-yellow-phrase: #fbbc05; --dna-blue: #4285F4;
-            /* Tipografías */
+            --g-blue: #4285F4; --g-red: #EA4335; --g-yellow: #FBBC05; --g-green: #34A853;
+            --bg-ultra-dark: #000000; --text-primary: #ffffff; --text-secondary: #9aa0a6;
+            --glass-bg: rgba(20, 20, 20, 0.3); --glass-border: rgba(255, 255, 255, 0.06);
             --font-main: 'Inter', sans-serif; --font-code: 'Roboto Mono', monospace;
-            --font-serif: 'Lora', serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
         
         body { 
-            background-color: var(--bg-organic-dark); color: var(--text-primary);
+            background-color: var(--bg-ultra-dark); color: var(--text-primary);
             font-family: var(--font-main); overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* Scroll Progress High-End (Bio-Green) */
-        #biosphere-progress {
-            position: fixed; top: 0; left: 0; height: 4px; width: 0%;
-            background: linear-gradient(90deg, var(--bio-green-deep), var(--bio-green-matrix));
-            z-index: 10000; box-shadow: 0 0 15px var(--bio-green-matrix);
+        /* Scroll Progress High-End (Colores de Google) */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, var(--g-blue), var(--g-red), var(--g-yellow), var(--g-green));
+            z-index: 10000; box-shadow: 0 0 10px var(--g-blue);
         }
 
-        /* === FONDO INTERACTIVO: RED NEURONAL BIOLÓGICA === */
-        #biosphere-canvas { position: fixed; top: 0; left: 0; z-index: -2; opacity: 0.6; }
+        /* === FONDO INTERACTIVO ORIGINAL (PAGERANK NETWORK) === */
+        #pagerank-canvas { position: fixed; top: 0; left: 0; z-index: -2; opacity: 0.5; }
         .ambient-glow {
-            position: fixed; top: 50%; left: 50%; width: 100vw; height: 100vh;
+            position: fixed; top: 50%; left: 50%; width: 90vw; height: 90vh;
             transform: translate(-50%, -50%); z-index: -1;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.05) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(66, 133, 244, 0.08) 0%, rgba(0,0,0,0) 70%);
             pointer-events: none;
         }
 
-        /* === HEADER EXTREMO (THE BIOSHERE CODE v.1.0) === */
+        /* === HEADER EXTREMO (ESTILO CAPTURA ORIGINAL) === */
         nav {
             position: fixed; top: 0; width: 100%; padding: 30px 60px;
             display: flex; justify-content: space-between; align-items: center; z-index: 1000;
         }
 
-        .nav-logo { font-family: 'Product Sans'; font-size: 1.8rem; font-weight: 700; color: var(--bio-green-matrix); letter-spacing: -1px; }
-        .nav-links { display: flex; gap: 35px; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+        /* Mantenimiento de links exactos */
+        .nav-logo { font-family: 'Product Sans'; font-size: 1.8rem; font-weight: 700; color: var(--g-blue); }
+        .nav-links { display: flex; gap: 35px; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-secondary); }
         .nav-links a { text-decoration: none; color: inherit; transition: 0.3s; }
         .nav-links a:hover { color: var(--text-primary); }
 
-        /* Indicador de estado biológico */
-        .status-dot { color: var(--bio-green-matrix); font-family: var(--font-code); font-size: 0.9rem; letter-spacing: 2px; }
+        /* Indicador de estado original */
+        .status-dot { color: var(--g-green); font-family: var(--font-code); font-size: 0.9rem; letter-spacing: 2px; }
 
         header { height: 110vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 10; padding: 2rem; }
 
-        /* Título original en monospace (Bio-Color) */
-        .monospace-title { font-family: var(--font-code); color: var(--bio-green-deep); font-size: 0.9rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 2rem; }
+        /* Título original en monospace */
+        .monospace-title { font-family: var(--font-code); color: var(--g-blue); font-size: 0.9rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 2rem; }
 
-        /* Logo original con colores exactos (The Biosphere Code) */
-        .original-logo { font-family: 'Product Sans'; font-size: clamp(4rem, 15vw, 10rem); font-weight: 900; letter-spacing: -6px; margin-bottom: 1.5rem; }
-        .original-logo span:nth-child(1), .original-logo span:nth-child(2) { color: var(--bio-green-matrix); }
-        .original-logo span:nth-child(3) { color: var(--g-yellow-phrase); }
-        .original-logo span:nth-child(4), .original-logo span:nth-child(6) { color: var(--dna-blue); }
-        .original-logo span:nth-child(5) { color: var(--text-primary); }
+        /* Logo original con colores exactos */
+        .original-logo { font-family: 'Product Sans'; font-size: clamp(6rem, 18vw, 12rem); font-weight: 900; letter-spacing: -6px; margin-bottom: 1.5rem; }
+        .original-logo span:nth-child(1), .original-logo span:nth-child(4) { color: var(--g-blue); }
+        .original-logo span:nth-child(2), .original-logo span:nth-child(6) { color: var(--g-red); }
+        .original-logo span:nth-child(3) { color: var(--g-yellow); }
+        .original-logo span:nth-child(5) { color: var(--g-green); }
 
-        /* Frase original en Serif dorada (The Biosphere Code Phrase) */
-        .lora-phrase { font-family: var(--font-serif); font-size: clamp(1.5rem, 4vw, 2.8rem); font-style: italic; color: #f5f5f5; max-width: 1000px; text-align: center; line-height: 1.4; font-weight: 400; }
-        .lora-phrase em { font-weight: 600; font-style: normal; color: var(--g-yellow-phrase); }
+        /* Frase original en Serif dorada */
+        .lora-phrase { font-family: 'Lora', serif; font-size: clamp(1.5rem, 4vw, 2.8rem); font-style: italic; color: #f5f5f5; max-width: 900px; text-align: center; line-height: 1.4; font-weight: 400; }
+        .lora-phrase em { font-weight: 600; font-style: normal; color: var(--g-yellow); }
 
-        /* === BARRA DE ESTADÍSTICAS BIOLÓGICAS ORIGINALES === */
+        /* === BARRA DE ESTADÍSTICAS ORIGINALES === */
         .original-stats { display: flex; gap: 80px; margin-top: 60px; flex-wrap: wrap; justify-content: center; }
         .stat-item { text-align: center; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px; }
         .stat-num { font-size: 3.5rem; font-weight: 900; display: block; color: var(--text-primary); }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; }
+        .stat-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1.5px; }
 
-        /* === SECCIONES DE CONTENIDO MAESTRO BIOLÓGICO === */
+        /* === SECCIONES DE CONTENIDO MAESTRO === */
         .container { max-width: 1400px; margin: 0 auto; padding: 100px 40px; position: relative; z-index: 20; }
         
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; margin-bottom: 120px; }
 
         /* Transparencia y cristal en paneles inferiores */
         .card {
-            background: rgba(10, 20, 10, 0.4); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border); border-radius: 30px; padding: 60px;
             transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); position: relative; overflow: hidden;
             opacity: 0; transform: translateY(50px);
         }
         .card.visible { opacity: 1; transform: translateY(0); }
-        .card:hover { transform: translateY(-10px); background: rgba(0, 255, 65, 0.05); }
+        .card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
 
         .c-full { grid-column: span 12; }
         .c-half { grid-column: span 6; }
         .c-third { grid-column: span 4; }
 
         .card h2 { font-family: 'Product Sans'; font-size: 3.5rem; margin-bottom: 25px; font-weight: 900; }
-        .card p { font-size: 1.2rem; line-height: 1.8; color: var(--text-muted); font-weight: 300; }
+        .card p { font-size: 1.2rem; line-height: 1.8; color: var(--text-secondary); font-weight: 300; }
 
-        /* Estilo de lista para datos biológicos */
-        .data-list { list-style: none; margin-top: 20px; color: var(--text-muted); line-height: 2; }
-        .data-list li::before { content: '>'; color: var(--bio-green-matrix); margin-right: 10px; font-family: var(--font-code); }
-
-        /* === TIMELINE MAESTRO EVOLUTIVO (INFERIOR) === */
+        /* === TIMELINE MAESTRO (INFERIOR) === */
         .timeline-wrapper { position: relative; padding: 50px 0; }
         .timeline-wrapper::before { content: ''; position: absolute; left: 50%; width: 1px; height: 100%; background: var(--glass-border); transform: translateX(-50%); }
 
@@ -114,18 +105,18 @@
         .t-entry.right { margin-left: auto; text-align: left; }
         .t-entry.visible { opacity: 1; transform: translateY(0); }
 
-        .t-box { background: rgba(10, 20, 10, 0.5); padding: 40px; border-radius: 20px; border: 1px solid var(--glass-border); }
-        .t-year { font-family: var(--font-code); font-size: 3.5rem; font-weight: 900; color: var(--g-yellow-phrase); }
-        .t-title { font-size: 1.8rem; margin: 10px 0; color: var(--bio-green-matrix); }
+        .t-box { background: var(--glass-bg); padding: 40px; border-radius: 20px; border: 1px solid var(--glass-border); }
+        .t-year { font-family: var(--font-code); font-size: 3.5rem; font-weight: 900; color: var(--g-yellow); }
+        .t-title { font-size: 1.8rem; margin: 10px 0; color: var(--g-blue); }
         
-        /* === FOOTER MAESTRO BIOSFERA === */
+        /* === FOOTER MAESTRO === */
         footer {
             padding: 150px 50px; text-align: center; border-top: 1px solid var(--glass-border);
-            color: var(--text-muted); font-size: 0.8rem; letter-spacing: 2.5px;
+            color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 2.5px;
             background: linear-gradient(to bottom, transparent, #020205);
         }
 
-        /* === ANIMACIONES CORE BIOLÓGICAS === */
+        /* === ANIMACIONES CORE === */
         @keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         .float-anim { animation: floatLogo 6s ease-in-out infinite; }
 
@@ -141,105 +132,102 @@
 </head>
 <body>
 
-    <div id="biosphere-progress"></div>
-    <canvas id="biosphere-canvas"></canvas>
+    <div id="scroll-progress"></div>
+    <canvas id="pagerank-canvas"></canvas>
     <div class="ambient-glow"></div>
 
     <nav>
         <div class="nav-links">
-            <a href="#genetic">ADN</a>
-            <a href="#ai-sim">Biología Digital</a>
-            <a href="#history">Historial Evolutivo</a>
-            <a href="# extinción">Extinciones</a>
+            <a href="#infra">Infraestructura</a>
+            <a href="#ai">Inteligencia</a>
+            <a href="#history">Historial</a>
+            <a href="#future">Futuro</a>
         </div>
-        <div class="status-dot">● BIOSFERA ACTIVA V1.0</div>
+        <div class="status-dot">● SISTEMA ACTIVO V2.0</div>
     </nav>
 
     <header>
-        <p class="monospace-title">// EL ARCHIVO MAESTRO DE LA VIDA EN EL UNIVERSO DETALLADO //</p>
+        <p class="monospace-title">// EL ARCHIVO DEFINITIVO DEL UNIVERSO DIGITAL //</p>
         <div class="original-logo">
-            <span>The</span> <span>Bio</span><span>sphere</span> <span>Code</span>
+            <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
         </div>
-        <p class="lora-phrase">Documentando el *conocimiento infinito* de la vida desde la primera célula.</p>
+        <p class="lora-phrase">Organizando el <span style="font-weight: 600; color: var(--g-yellow);">conocimiento infinito</span> del mundo desde 1998.</p>
         
         <div class="original-stats">
-            <div class="stat-item"><span class="stat-num">3.8B</span><span class="stat-label">Años de Evolución</span></div>
-            <div class="stat-item"><span class="stat-num">8.7M</span><span class="stat-label">Especies Estimadas</span></div>
-            <div class="stat-item"><span class="stat-num">10²⁸</span><span class="stat-label">Células Totales (Aprox)</span></div>
-            <div class="stat-item"><span class="stat-num">99.4%</span><span class="stat-label">ADN Humano/Chimpancé</span></div>
+            <div class="stat-item"><span class="stat-num">8.5B</span><span class="stat-label">Búsquedas / Día</span></div>
+            <div class="stat-item"><span class="stat-num">20PB</span><span class="stat-label">Datos Procesados</span></div>
+            <div class="stat-item"><span class="stat-num">2T+</span><span class="stat-label">Valoración Mercado</span></div>
+            <div class="stat-item"><span class="stat-num">180+</span><span class="stat-label">Países</span></div>
         </div>
     </header>
 
     <div class="container">
-        
-        <div class="bento-grid" id="genetic">
+        <div class="bento-grid" id="infra">
             <div class="card c-full">
-                <h2>01. El Código Maestro del ADN</h2>
-                <p>La vida no es magia; es la ejecución continua del Ácido Desoxirribonucleico. El ADN es una molécula de doble hélice compuesta por solo cuatro bases nitrogenadas: **Adenina, Timina, Citosina y Guanina (ATCG)**. Este código cuaternario almacena la información necesaria para construir proteínas y coordinar el metabolismo. El genoma humano contiene 3,000 millones de estas bases. Es el 'Borg' de la biología global.</p>
+                <h2>01. La Red Global de Nervios</h2>
+                <p>Google no es una web; es el dueño de la fibra óptica transoceánica más extensa del planeta. Sus cables (como 'Curie' o 'Grace Hopper') conectan continentes con latencias de microsegundos. La red Google maneja más del 40% del tráfico de internet en horas punta. Sus centros de datos operan bajo **Borg**, el precursor de Kubernetes.</p>
             </div>
             <div class="card c-half">
-                <h3>G-B G-R G-Y G-B G-G G-R</h3>
-                <p>La alineación genética muestra que somos un 99.4% idénticos a los chimpancés. Este minúsculo 0.6% de diferencia técnica contiene la clave de nuestra consciencia, el lenguaje abstracto y la capacidad de crear tecnología.</p>
+                <h3>TPU: El Silicio de la IA</h3>
+                <p>Google diseñó los Tensor Processing Units (Chips custom). Están optimizados para la nucleosíntesis matemática requerida por el Deep Learning.</p>
             </div>
             <div class="card c-half">
-                <h3>El Plegamiento de Proteínas</h3>
-                <p>No basta con leer el ADN; hay que entender cómo se pliegan las proteínas. Es el problema matemático más complejo de la biología, resuelto recientemente por la IA (AlphaFold), acelerando la medicina técnica.</p>
+                <h3>Spanner: Tiempo Atómico</h3>
+                <p>La base de datos global sincrónica que sincroniza datos a nivel mundial utilizando relojes atómicos en sus racks.</p>
             </div>
         </div>
 
-        <div class="bento-grid" id="ai-sim">
-            <div class="card c-full">
-                <h2>02. La Vida Digital: Spanner y Borg Biológicos</h2>
-                <p>La biosfera funciona como un supercomputador distribuido. Los ecosistemas se auto-organizan mediante flujos de energía Spanner y redes Borg de hongos (micorrizas) que conectan bosques enteros, compartiendo nutrientes e información en tiempo real. La evolución utiliza inteligencia artificial para 'auto-refrigerarse' de las extinciones masivas.</p>
-                <div class="original-stats" style="margin-top: 2rem;">
-                    <div class="stat-item"><span class="stat-num">1PB</span><span class="stat-label">Info por Célula</span></div>
-                    <div class="stat-item"><span class="stat-num">Borg</span><span class="stat-label">Redes Simbióticas</span></div>
-                </div>
+        <div class="bento-grid" id="ai">
+            <div class="card c-third">
+                <h3>2012: Deep Learning</h3>
+                <p>Una red neuronal de 16k núcleos aprende a identificar gatos en YouTube sin saber qué era un gato.</p>
+            </div>
+            <div class="card c-third">
+                <h3>2017: Transformers</h3>
+                <p>El paper "Attention is All You Need" de Google definió la arquitectura que hoy usan todos los LLMs (ChatGPT, Gemini).</p>
+            </div>
+            <div class="card c-third">
+                <h3>2024: Gemini Ultra</h3>
+                <p>Razonamiento multimodal nativo: la IA ahora ve, oye, razona y ejecuta tareas sobre flujos de video continuos.</p>
             </div>
         </div>
 
         <div class="timeline-wrapper" id="history">
             <div id="dynamic-timeline"></div>
         </div>
-
-        <div class="bento-grid" id=" extinción">
-            <div class="card c-full grave-card">
-                <h2>Extinciones Masivas // <span style="color:var(--bio-green-matrix);">99% Fallos Técnicos</span></h2>
-                <p>Para innovar, la evolución debe destruir. El 99% de todas las especies que han existido en la Tierra han desaparecido. Aquí descansan los proyectos que la selección natural ejecutó sin piedad:</p>
-                <ul class="data-list">
-                    <li>La Gran Oxidación (La IA Bacteriana se salió de control)</li>
-                    <li>La Extinción de los Dinosaurios (El asteroide 'Stadia')</li>
-                    <li>Extinción del Pérmico (Nadie entendió qué era realmente)</li>
-                    <li>Megafauna del Pleistoceno (El éxito de la caza humana que murió)</li>
-                </ul>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <p>BIOSPHERE TERMINAL SYSTEM // NO DATA IS LOST // v2026</p>
-        <p>© 1998 - 2026 // Distributed by Alphabet Inc. Moonshot Division</p>
+        <p>TERMINAL SYSTEM // DATABASE DUMP COMPLETE // 2026</p>
+        <p>© ALPHABET INC. MOONSHOT DIVISION</p>
     </footer>
 
     <script>
-        /* === BASE DE DATOS MASIVA (Inyectada para longitud máxima) === */
+        /* === BASE DE DATOS MASIVA (Inyectada para ahorrar espacio) === */
         const googleHistory = [
-            {year: "3.8B", title: "Abiogénesis", d: "Aparición de las primeras células procariotas en fuentes hidrotermales. Nace BackRub biológico."},
-            {year: "3.5B", title: "Cianobacterias", d: "Desarrollo de la fotosíntesis oxigénica, convirtiendo luz solar en energía técnica AdWords."},
-            {year: "2.4B", title: "La Gran Oxidación", t: "El oxígeno se acumula, extinguiendo el 90% de la vida anaeróbica. Fallo técnico v0.1."},
-            {year: "1.5B", title: "Eucariotas", d: "Aparición de células con núcleo y orgánulos. Eric Schmidt se une como CEO biológico."},
-            {year: "600M", title: "Explosión Cámbrica", d: "Diversificación masiva de formas de vida multicelulares. Nace Google Imágenes de la morfología."},
-            {year: "500M", title: "Peces y Plantas Land", d: "La vida coloniza la tierra. Los bosques se vuelven redes Maps/Android."},
-            {year: "400M", title: "Anfibios e Insectos", t: "El mundo se vuelve navegable para la vida terrestre gracias a Google X biológico."},
-            {year: "300M", title: "Pérmico", t: "Extinción masiva 'The Cementery'. La IA biológica se reajusta para el próximo paso."},
-            {year: "250M", title: "Triásico", d: "Aparición de dinosaurios y mamíferos primigenios. Gmail evolutivo."},
-            {year: "66M", title: "Dinosaurios e asteroide", d: "El asteroide 'Stadia' golpea, permitiendo el ascenso de los mamíferos."},
-            {year: "10M", title: "Bipedismo homínido", t: "Los homínidos empiezan a caminar sobre dos patas. Google Glass biológico."},
-            {year: "300k", title: "Homo Sapiens", d: "Lanzamiento de Chrome biológico enfocado en la velocidad y la consciencia."},
-            {year: "10k", title: "Agricultura", t: "Revolución agrícola, democratizando el acceso a los recursos AdWords biológicos."},
-            {year: "2016", title: "DeepMind AlphaGo", d: "La IA humana derrota al campeón mundial de Go. Comienza la era de la IA generativa biológica."},
-            {year: "2024", title: "Gemini / Vertex AI", d: "La Inteligencia Artificial se incrusta en el núcleo del buscador biológico."},
-            {year: "2026", title: "Singularidad", d: "La IA biológica evoluciona a un agente personal que anticipa las necesidades del usuario."}
+            {year: "1995", title: "El Encuentro", desc: "Larry Page conoce a Sergey Brin en Stanford. Empieza la colaboración en BackRub."},
+            {year: "1997", title: "El Dominio", desc: "Se registra oficialmente google.com el 15 de septiembre."},
+            {year: "1998", title: "Garaje & Inc.", d: "Constitución como empresa. Cheque de 100k de Andy Bechtolsheim."},
+            {year: "1999", t: "Salgada de Garaje", d: "Se mudan a la primera oficina en Palo Alto con 8 empleados."},
+            {year: "2000", t: "AdWords", d: "Lanzan el motor económico de la web. Publicidad basada en la búsqueda."},
+            {year: "2001", t: "Schmidt", d: "Eric Schmidt se une como CEO para 'supervisar a los adultos'."},
+            {year: "2002", t: "Google News", d: "Tras el 11/s, unifican titulares de miles de fuentes noticiosas."},
+            {year: "2003", t: "AdSense", d: "Democratizan los ingresos web para pequeños creadores."},
+            {year: "2004", t: "Gmail & IPO", d: "Lanzan Gmail con 1GB el 1 de abril. Salida a bolsa a $85."},
+            {year: "2005", t: "Maps & Android", d: "Adquieren Where 2 Tech y Android. El mundo se vuelve digital."},
+            {year: "2006", t: "YouTube", d: "Compra de la plataforma de video por 1.65B$. Mejor trato de la historia."},
+            {year: "2007", t: "Street View", d: "El mundo a pie de calle gracias a cámaras panorámicas."},
+            {year: "2008", t: "Chrome v1", d: "Lanzan el navegador que destronaría a Internet Explorer."},
+            {year: "2010", t: "Google X", d: "Se funda el laboratorio secreto para Moonshots (Coches autónomos)."},
+            {year: "2011", t: "Google Panda", d: "Actualización masiva que eliminó granjas de contenido basura."},
+            {year: "2012", t: "Knowledge Graph", d: "Entienden entidades y conceptos, no solo palabras."},
+            {year: "2014", t: "DeepMind", d: "Compra de la empresa líder en IA. AlphaGo en desarrollo."},
+            {year: "2015", t: "Alphabet", d: "Google se reorganiza masivamente como subsidiaria de Alphabet Inc."},
+            {year: "2016", t: "AlphaGo", d: "Vencen al campeón mundial de Go, hito histórico en IA."},
+            {year: "2019", t: "Supremacía Cuántica", d: "Sycamore resuelve en 200s lo que llevaría 10 mil años."},
+            {year: "2023", t: "Gemini", d: "Pivote masivo hacia la IA generativa masiva multimodal."},
+            {year: "2024", t: "IA Everywhere", d: "Integración profunda en el Buscador (AI Overviews) y Workspace."},
+            {year: "2026", t: "Search 3.0", d: "El buscador ya no entrega enlaces, entrega respuestas sintetizadas."}
         ];
 
         /* === RENDERIZADO DEL DOM === */
@@ -251,14 +239,14 @@
                     <div class="t-box">
                         <span class="t-year">${item.year}</span>
                         <h3 class="t-title">${item.title || item.t}</h3>
-                        <p style="color:var(--text-muted); line-height:1.6;">${item.desc || item.d}</p>
+                        <p style="color:var(--text-secondary); line-height:1.6;">${item.desc || item.d}</p>
                     </div>
                 </div>
             `;
         });
 
-        /* === MOTOR VISUAL CANVAS (BIOLOGICAL NEURAL NETWORK) MANTENIDO === */
-        const canvas = document.getElementById('biosphere-canvas');
+        /* === MOTOR VISUAL CANVAS (PAGERANK NETWORK) MANTENIDO === */
+        const canvas = document.getElementById('pagerank-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, columns;
         let drops = [];
@@ -275,7 +263,8 @@
                 this.vx = (Math.random() - 0.5) * 0.8;
                 this.vy = (Math.random() - 0.5) * 0.8;
                 this.radius = Math.random() * 2 + 1;
-                this.color = '#00FF41';
+                const colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
             update() {
@@ -292,7 +281,7 @@
 
         function createNodes() {
             drops = [];
-            let particleCount = Math.floor(window.innerWidth / 10); // Más denso para Biosfera
+            let particleCount = Math.floor(window.innerWidth / 15);
             for(let i=0; i<particleCount; i++) {
                 drops.push(new Node());
             }
@@ -304,8 +293,8 @@
                 n.update(); n.draw();
                 for(let j=i; j<drops.length; j++) {
                     let d = Math.hypot(n.x - drops[j].x, n.y - drops[j].y);
-                    if(d < 150) {
-                        ctx.beginPath(); ctx.strokeStyle = `rgba(0,255,65,${0.2 - d/750})`; // Verde matriz
+                    if(d < 120) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(255,255,255,${0.1 - d/1200})`;
                         ctx.lineWidth = 0.5; ctx.moveTo(n.x, n.y); ctx.lineTo(drops[j].x, drops[j].y); ctx.stroke();
                     }
                 }
@@ -313,7 +302,7 @@
             requestAnimationFrame(animateCanvas);
         }
 
-        /* === SCROLL & REVEAL EXTREMO MODERNO === */
+        /* === SCROLL & REVEAL EXTREMO === */
         const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 
         const scrollObserver = new IntersectionObserver((entries) => {
@@ -326,7 +315,7 @@
 
         window.addEventListener('scroll', () => {
             const scroll = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-            document.getElementById('biosphere-progress').style.width = scroll + "%";
+            document.getElementById('scroll-progress').style.width = scroll + "%";
         });
 
         /* === INIT === */
